@@ -5,7 +5,7 @@ Based on [Paul Miller's](https://github.com/paulmillr/dotfiles) dotfiles
 Colourful & robust configuration files and utilities for Mac, Linux and BSD. Installation is done with a simple command:
 
 ```sh
-curl -L https://git.io/stdot | sh
+curl -L https://git.io/Jff1G | sh
 ```
 
 The short URL expands to GitHub-hosted `install.sh`, which can be easily audited.
