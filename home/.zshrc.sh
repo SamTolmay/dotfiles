@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-curr="$pm/dotfiles"
+curr="$sam/dotfiles"
 
 # Load main files.
 # echo "Load start\t" $(gdate "+%s-%N")
@@ -17,12 +17,17 @@ fpath=("$curr/terminal" $fpath)
 autoload -Uz promptinit && promptinit
 prompt 'paulmillr'
 
-path=(/usr/local/opt/ruby/bin $HOME/.cargo/bin $path) # changing .zshenv doesn't work
-export GPG_TTY=$(tty) # For git commit signing
-
 # ==================================================================
 # = Aliases =
 # ==================================================================
+# My own aliases
+alias lo='lowdefy'
+alias yn='yarn'
+alias ynb='yarn build'
+alias yns='yarn start'
+alias ynt='yarn test'
+alias py='python3'
+
 # Simple clear command.
 alias cl='clear'
 
@@ -43,77 +48,8 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
   # Sniff network info.
   alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
-
-  # Process grep should output full paths to binaries.
-  alias pgrep='pgrep -fli'
-else
-  # Process grep should output full paths to binaries.
-  alias pgrep='pgrep -fl'
 fi
 
-# Git short-cuts.
-alias g='git'
-alias ga='git add'
-alias gr='git rm'
-alias gf='git fetch'
-alias gu='git pull'
-alias gs='git status --short'
-alias gd='git diff'
-alias gdisc='git discard'
-
-function gc() {
-  args=$@
-  git commit -m "$args"
-}
-function gca() {
-  args=$@
-  git commit --amend -m "$args"
-}
-
-function cherry() {
-  is_range=''
-  case "$1" in # `sh`-compatible substring.
-    *\.*)
-    is_range='1'
-  ;;
-  esac
-  # Check if it's one commit vs set of commits.
-  if [ "$#" -eq 1 ] && [[ $is_range ]]; then
-    log=$(git rev-list --reverse --topo-order $1 | xargs)
-    setopt sh_word_split 2> /dev/null # Ignore for `sh`.
-    commits=(${log}) # Convert string to array.
-    unsetopt sh_word_split 2> /dev/null # Ignore for `sh`.
-  else
-    commits=("$@")
-  fi
-
-  total=${#commits[@]} # Get last array index.
-  echo "Picking $total commits:"
-  for commit in ${commits[@]}; do
-    echo $commit
-    git cherry-pick -n $commit || break
-    [[ CC -eq 1 ]] && cherrycc $commit
-  done
-}
-
-alias gp='git push'
-
-function gcp() {
-  title="$@"
-  git commit -am $title && git push -u origin
-}
-alias gcl='git clone'
-alias gch='git checkout'
-alias gbr='git branch'
-alias gbrcl='git checkout --orphan'
-alias gbrd='git branch -D'
-function gl() {
-  count=$1
-  [[ -z "$1" ]] && count=10
-  git --no-pager log --graph --no-merges --max-count=$count
-}
-
-# own git workflow in hy origin with Tower
 
 # ===============
 # Dev short-cuts.
@@ -175,31 +111,6 @@ function ff() {
   find . -iname "*${1:-}*"
 }
 
-# Count code lines in some directory.
-# $ loc py js css
-# # => Lines of code for .py: 3781
-# # => Lines of code for .js: 3354
-# # => Lines of code for .css: 2970
-# # => Total lines of code: 10105
-function loc() {
-  local total
-  local firstletter
-  local ext
-  local lines
-  total=0
-  for ext in $@; do
-    firstletter=$(echo $ext | cut -c1-1)
-    if [[ firstletter != "." ]]; then
-      ext=".$ext"
-    fi
-    lines=`find-exec "*$ext" cat | wc -l`
-    lines=${lines// /}
-    total=$(($total + $lines))
-    echo "Lines of code for ${fg[blue]}$ext${reset_color}: ${fg[green]}$lines${reset_color}"
-  done
-  echo "${fg[blue]}Total${reset_color} lines of code: ${fg[green]}$total${reset_color}"
-}
-
 function _calcram() {
   local sum
   sum=0
@@ -250,18 +161,6 @@ function rams() {
   done
 }
 
-# $ size dir1 file2.js
-function size() {
-  # du -scBM | sort -n
-  du -shck "$@" | sort -rn | awk '
-      function human(x) {
-          s="kMGTEPYZ";
-          while (x>=1000 && length(s)>1)
-              {x/=1024; s=substr(s,2)}
-          return int(x+0.5) substr(s,1,1)
-      }
-      {gsub(/^[0-9]+/, human($1)); print}'
-}
 
 # Shortcut for searching commands history.
 # hist git
@@ -293,45 +192,4 @@ function retry() {
   retry $@
 }
 
-# Simple .tar archiving.
-function tar_() {
-  tar -cvf "$1.tar" "$1"
-}
-
-function untar() {
-  tar -xvf $1
-}
-
-# Managing .tar.bz2 archives - best compression.
-function tarbz2() {
-  inf="$1"
-  outf="$1.tar.bz2"
-  # Use parallel version when it exists.
-  if command -v pbzip2 > /dev/null 2>&1; then
-    tar --use-compress-program pbzip2 -cf "$outf" "$inf"
-  else
-    tar -cvjf "$outf" "$inf"
-  fi
-}
-
-alias untarbz2='tar -xvjf'
-
-function tarage() {
-  file="$1"
-  tarf="$file.tar.bz2"
-  agef="$file.tar.bz2.age"
-  tarbz2 $file
-  age -p $tarf > $agef
-  rm $tarf
-}
-
-function untarage() {
-  agef="$1"
-  tarf="${agef/.age/}"
-  file="${tarf/.tar.bz2/}"
-  age -d $agef > $tarf
-  tar -xf $tarf
-  rm $tarf
-}
-
-export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+export PATH="$PATH:./:/usr/local/lib/python3.7/site-packages:~/Library/Python/3.7/lib/python/site-packages:./node_modules:~/Library/Python/3.7/bin"

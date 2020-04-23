@@ -63,7 +63,6 @@ setopt BRACE_CCL          # Allow brace character class list expansion.
 setopt COMBINING_CHARS    # Combine zero-length punctuation characters (accents)
                           # with the base character.
 setopt RC_QUOTES          # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
-unsetopt MAIL_WARNING     # Don't print a warning message if a mail file has been accessed.
 
 #
 # Jobs
@@ -280,11 +279,8 @@ setopt CORRECT
 alias ack='nocorrect ack'
 alias cd='nocorrect cd'
 alias cp='nocorrect cp'
-alias ebuild='nocorrect ebuild'
-alias gcc='nocorrect gcc'
 alias gist='nocorrect gist'
 alias grep='nocorrect grep'
-alias heroku='nocorrect heroku'
 alias ln='nocorrect ln'
 alias man='nocorrect man'
 alias mkdir='nocorrect mkdir'
@@ -292,7 +288,6 @@ alias mv='nocorrect mv'
 alias rm='nocorrect rm'
 
 # Disable globbing.
-alias bower='noglob bower'
 alias fc='noglob fc'
 alias find='noglob find'
 alias ftp='noglob ftp'
@@ -342,33 +337,8 @@ fi
 alias l='ls -1A'         # Lists in one column, hidden files.
 alias ll='ls -lh'        # Lists human readable sizes.
 alias la='ll -A'         # Lists human readable sizes, hidden files.
-alias sl='ls'            # I often screw this up.
+alias o='open'
 
-# macOS Everywhere
-if [[ "$OSTYPE" == darwin* ]]; then
-  alias o='open'
-elif [[ "$OSTYPE" == cygwin* ]]; then
-  alias o='cygstart'
-  alias pbcopy='tee > /dev/clipboard'
-  alias pbpaste='cat /dev/clipboard'
-else
-  alias o='xdg-open'
-
-  if (( $+commands[xclip] )); then
-    alias pbcopy='xclip -selection clipboard -in'
-    alias pbpaste='xclip -selection clipboard -out'
-  elif (( $+commands[xsel] )); then
-    alias pbcopy='xsel --clipboard --input'
-    alias pbpaste='xsel --clipboard --output'
-  fi
-fi
-
-# File Download
-if (( $+commands[curl] )); then
-  alias get='curl --continue-at - --location --progress-bar --remote-name --remote-time'
-elif (( $+commands[wget] )); then
-  alias get='wget --continue --progress=bar --timestamping'
-fi
 
 #
 # Functions
