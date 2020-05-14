@@ -70,5 +70,6 @@
     "editor.formatOnSave": true,
     "editor.acceptSuggestionOnCommitCharacter": false,
     "eslint.alwaysShowStatus": true,
-    "[lisp]": {}
+    "[lisp]": {},
+    "editor.acceptSuggestionOnEnter": "off"
 }
