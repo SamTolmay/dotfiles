@@ -4,6 +4,7 @@
 DEV="$HOME/Developer"
 SAM="$DEV/sam"
 LDF="$DEV/lowdefy"
+MSC="$SAM/msc"
 # Load main files.
 # echo "Load start\t" $(gdate "+%s-%N")
 source "$SAM/dotfiles/terminal/startup.sh"
@@ -22,7 +23,6 @@ prompt 'paulmillr'
 # ==================================================================
 # = Aliases =
 # ==================================================================
-# My own aliases
 alias ldf='lowdefy'
 alias yn='yarn'
 alias ynb='yarn build'
@@ -31,7 +31,6 @@ alias ynt='yarn test'
 alias py='python3'
 alias actenv='source env/bin/activate'
 alias nb='jupyter notebook'
-# Simple clear command.
 alias cl='clear'
 
 
