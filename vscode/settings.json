@@ -55,8 +55,8 @@
       "!Split sequence"
     ],
     "cfnLint.validateUsingJsonSchema": false,
-    "yaml.validate": false,
     "cSpell.userWords": [
+      "Dataloader",
       "Subblocks",
       "concat",
       "heatmap",
@@ -82,5 +82,10 @@
     "editor.detectIndentation": false,
     "files.associations": {
       "*.njk": "yaml"
-    }
+    },
+    "files.trimTrailingWhitespace": true,
+    "yaml.validate": false,
+    "prettier.packageManager": "yarn",
+    "eslint.packageManager": "yarn",
+    "json.format.enable": false,
 }
