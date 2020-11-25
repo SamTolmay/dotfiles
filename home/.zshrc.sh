@@ -29,4 +29,4 @@ alias py='python3'
 alias actenv='source env/bin/activate'
 alias nb='jupyter notebook'
 alias cl='clear'
-
+alias ibrew='arch -x86_64 /usr/local/bin/brew'
