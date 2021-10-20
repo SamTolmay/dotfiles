@@ -1,8 +1,0 @@
-tap "aws/tap"
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/core"
-brew "python"
-brew "yarn"
-brew "aws/tap/aws-sam-cli"
-cask "java"

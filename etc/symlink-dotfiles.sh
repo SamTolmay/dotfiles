@@ -1,29 +1,10 @@
 #!/bin/sh
 
-dev="$HOME/Developer"
-dotfiles="$dev/sam/dotfiles"
+dotfiles="$HOME/Developer/sam/dotfiles/home"
 
-echo ""
-if [ -d "$dotfiles" ]; then
-  echo "Symlinking dotfiles from $dotfiles"
-else
-  echo "$dotfiles does not exist"
-  exit 1
-fi
+link "$dotfiles/.gitconfig" "$HOME/.gitconfig"
+link "$dotfiles/.zlogin.sh" "$HOME/.zlogin"
+link "$dotfiles/.zshenv.sh" "$HOME/.zshenv"
+link "$dotfiles/.zshrc.sh" "$HOME/.zshrc"
 
-link() {
-  from="$1"
-  to="$2"
-  echo "Linking '$from' to '$to'"
-  rm -f "$to"
-  ln -s "$from" "$to"
-}
-
-for location in $(find home -name '.*'); do
-  file="${location##*/}"
-  file="${file%.sh}"
-  link "$dotfiles/$location" "$HOME/$file"
-done
-
-link "$dotfiles/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 

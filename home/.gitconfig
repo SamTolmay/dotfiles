@@ -1,11 +1,6 @@
 [user]
-	name = SamTolmay
-	email = samtolmay@gmail.com
+  name = Sam Tolmay
+  email = sam@lowdefy.com
 
 [github]
   user = SamTolmay
-[filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
