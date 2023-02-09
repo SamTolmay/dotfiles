@@ -31,11 +31,19 @@ alias py='python3'
 alias actenv='source env/bin/activate'
 alias nb='jupyter notebook'
 alias cl='clear'
+alias killport3000='kill -9 $(lsof -ti:3000)'
+
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="/opt/homebrew/bin:$HOME/.yarn/bin:$PATH"
+export PATH="/opt/homebrew/bin:$HOME/.yarn/bin:$PATH::/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
+# ==================================================================
+# = Python =
+# ==================================================================
+
+alias python='python3'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -51,5 +59,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
-export MONGOMS_ARCH="x64"
