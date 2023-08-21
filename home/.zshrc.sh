@@ -44,18 +44,3 @@ export PATH="/opt/homebrew/bin:$HOME/.yarn/bin:$PATH::/Applications/Visual Studi
 # ==================================================================
 
 alias python='python3'
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/sam/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/sam/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/Users/sam/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/sam/miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
