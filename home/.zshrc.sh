@@ -14,12 +14,11 @@ PRP="$MRM/prp"
 source "$SAM/dotfiles/terminal/startup.sh"
 # echo "Load end\t" $(gdate "+%s-%N")
 
-# autoload -U colors && colors
+# Prompt
+source "$SAM/dotfiles/terminal/prompt.zsh"
 
-# Load and execute the prompt theming system.
-fpath=("$SAM/dotfiles/terminal" $fpath)
-autoload -Uz promptinit && promptinit
-prompt 'paulmillr'
+# Auto-list files on cd
+function chpwd { ls -G . }
 
 # ==================================================================
 # = Aliases =
@@ -33,6 +32,7 @@ alias killport3000='kill -9 $(lsof -ti:3000)'
 alias cc=claude
 alias gem=gemini
 alias python='python3'
+alias ccupdate='brew upgrade claude-code'
 
 
 export PATH="/opt/homebrew/opt/python@3.14/libexec/bin:/opt/homebrew/bin:$HOME/.yarn/bin:$PATH::/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
