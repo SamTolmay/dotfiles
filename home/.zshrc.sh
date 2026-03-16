@@ -1,14 +1,24 @@
 #!/usr/bin/env zsh
 
-# Commonly used directories.
+# Directories
 DEV="$HOME/Developer"
 SAM="$DEV/sam"
-LDF="$DEV/lowdefy/lowdefy"
 MRM="$DEV/mrm"
+MRMS="$MRM/mrm-support"
 PRP="$MRM/prp"
+LOW="$DEV/lowdefy"
+LDF="$LOW/lowdefy"
+LDFA="$LOW/lowdefy.worktrees/lowdefy-alpha"
+LDD="$LOW/lowdefy-design"
+LDDA="$LOW/lowdefy-design.worktrees/design-alpha"
 
 # Shell options and history.
 source "$SAM/dotfiles/terminal/startup.sh"
+
+# Completion
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'  # case-insensitive
+zstyle ':completion:*' menu select                     # arrow-key menu
 
 # Prompt
 source "$SAM/dotfiles/terminal/prompt.zsh"
