@@ -14,7 +14,6 @@ autoload -Uz add-zsh-hook
 vcs_info=''
 cmd_exec_time=''
 cmd_start_time=''
-prompt_dir=''
 
 function prompt_preexec {
   cmd_start_time=$EPOCHSECONDS
@@ -36,13 +35,6 @@ function prompt_precmd {
     fi
   fi
   cmd_start_time=''
-
-  # Current directory (~ for home)
-  if [[ "$PWD" == "$HOME" ]]; then
-    prompt_dir='~'
-  else
-    prompt_dir="${PWD:t}"
-  fi
 
   # Git info
   vcs_info=''
@@ -69,7 +61,7 @@ setopt PROMPT_SUBST
 add-zsh-hook preexec prompt_preexec
 add-zsh-hook precmd prompt_precmd
 
-PROMPT='%F{cyan}${prompt_dir}%f${vcs_info}${cmd_exec_time} %(!.%B%F{red}#%f%b.%B%(?.%F{green}.%F{red})❯%f%b) '
+PROMPT='%F{cyan}%1~%f${vcs_info}${cmd_exec_time} %(!.%B%F{red}#%f%b.%B%(?.%F{green}.%F{red})❯%f%b) '
 RPROMPT=''
 SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 
