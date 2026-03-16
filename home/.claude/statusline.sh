@@ -18,7 +18,15 @@ cd "$cwd" 2>/dev/null && git rev-parse --is-inside-work-tree &>/dev/null && {
     ref=$(git symbolic-ref -q HEAD 2>/dev/null | sed -e 's|^refs/heads/||')
     [ -n "$ref" ] && {
         git diff --quiet --ignore-submodules HEAD 2>/dev/null && dirty="" || dirty="*"
-        vcs=" ${ref}${dirty}"
+        upstream=""
+        counts=$(git rev-list --left-right --count HEAD...@{upstream} 2>/dev/null)
+        if [ -n "$counts" ]; then
+            ahead=$(echo "$counts" | cut -f1)
+            behind=$(echo "$counts" | cut -f2)
+            [ "$ahead" -gt 0 ] 2>/dev/null && upstream+="↑${ahead}"
+            [ "$behind" -gt 0 ] 2>/dev/null && upstream+="↓${behind}"
+        fi
+        vcs=" ${ref}${dirty}${upstream}"
     }
 }
 
