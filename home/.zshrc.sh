@@ -35,22 +35,16 @@ alias nb='jupyter notebook'
 alias cl='clear'
 alias cc=claude
 alias gem=gemini
-alias ccupdate='brew upgrade claude-code'
+alias ccupdate='brew upgrade claude-code@latest'
 killport() { kill -9 $(lsof -ti:"$1") }
 
 # PATH
 export PATH="/opt/homebrew/opt/python@3.14/libexec/bin:/opt/homebrew/bin:$HOME/.yarn/bin:$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
-# Lazy-load nvm (saves ~200ms shell startup)
+# nvm — canonical install per nvm's README. Sourcing nvm.sh auto-runs
+# `nvm use default` (via nvm.sh's nvm_process_parameters), so node/pnpm
+# land on PATH.
 export NVM_DIR="$HOME/.nvm"
-if [ -s "$NVM_DIR/nvm.sh" ]; then
-  nvm() {
-    unset -f nvm node npm npx
-    \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-    nvm "$@"
-  }
-  node() { unset -f nvm node npm npx; \. "$NVM_DIR/nvm.sh"; node "$@" }
-  npm()  { unset -f nvm node npm npx; \. "$NVM_DIR/nvm.sh"; npm "$@" }
-  npx()  { unset -f nvm node npm npx; \. "$NVM_DIR/nvm.sh"; npx "$@" }
-fi
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+

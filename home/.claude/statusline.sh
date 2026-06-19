@@ -8,10 +8,6 @@ model=$(echo "$input" | jq -r '.model.display_name')
 cwd=$(echo "$input" | jq -r '.workspace.current_dir')
 dir=$(basename "$cwd")
 
-# SSH info
-ssh=""
-[ -n "$SSH_TTY" ] && ssh="$(whoami)@$(hostname -s) "
-
 # Git info
 vcs=""
 cd "$cwd" 2>/dev/null && git rev-parse --is-inside-work-tree &>/dev/null && {
@@ -54,6 +50,6 @@ else
 fi
 
 # Output format with colors
-printf "${CYAN}%s${RESET} | ${BLUE}%s%s${RESET}${MAGENTA}%s${RESET} | ${GREY}↑%sk${RESET} ${GREY}↓%sk${RESET} ${CONTEXT_COLOR}%s%% left${RESET}" \
-    "$model" "$ssh" "$dir" "$vcs" \
+printf "${CYAN}%s${RESET} | ${BLUE}%s${RESET}${MAGENTA}%s${RESET} | ${GREY}↑%sk${RESET} ${GREY}↓%sk${RESET} ${CONTEXT_COLOR}%s%% left${RESET}" \
+    "$model" "$dir" "$vcs" \
     "$((in_tok/1000))" "$((out_tok/1000))" "$remaining_pct"
