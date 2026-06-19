@@ -23,8 +23,17 @@ zstyle ':completion:*' menu select                     # arrow-key menu
 # Prompt
 source "$SAM/dotfiles/terminal/prompt.zsh"
 
-# Auto-list files on cd
-function chpwd { ls -G . }
+# Listing — CLICOLOR colorizes the standard `ls`; eza adds l / ll / lt.
+# Icons need a Nerd Font (brew install --cask font-jetbrains-mono-nerd-font).
+export CLICOLOR=1
+if command -v eza >/dev/null 2>&1; then
+  alias l='eza --group-directories-first --icons=auto -1'
+  alias ll='eza --group-directories-first --icons=auto -lah --git'
+  alias lt='eza --group-directories-first --icons=auto --tree --level=2'
+  function chpwd { eza --group-directories-first --icons=auto -1 }
+else
+  function chpwd { ls }   # fallback until eza is installed
+fi
 
 # Aliases
 alias ldf='lowdefy'
