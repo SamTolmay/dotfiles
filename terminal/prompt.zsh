@@ -1,10 +1,10 @@
 # Simple zsh prompt.
 #
-# dotfiles ❯ (default)
-# dotfiles master ❯ (in git repository)
-# dotfiles master↑2↓1 ❯ (ahead/behind remote)
-# dotfiles master* ❯ (dirty working tree)
-# dotfiles master 3s ❯ (last command took >5s)
+# sam/dotfiles ❯ (default)
+# sam/dotfiles master ❯ (in git repository)
+# sam/dotfiles master↑2↓1 ❯ (ahead/behind remote)
+# sam/dotfiles master* ❯ (dirty working tree)
+# sam/dotfiles master 3s ❯ (last command took >5s)
 #
 # Based on prompt by Paul Miller (paulmillr.com)
 
@@ -61,7 +61,7 @@ setopt PROMPT_SUBST
 add-zsh-hook preexec prompt_preexec
 add-zsh-hook precmd prompt_precmd
 
-PROMPT='%F{cyan}%1~%f${vcs_info}${cmd_exec_time} %(!.%B%F{red}#%f%b.%B%(?.%F{green}.%F{red})❯%f%b) '
+PROMPT='%F{cyan}%2~%f${vcs_info}${cmd_exec_time} %(!.%B%F{red}#%f%b.%B%(?.%F{green}.%F{red})❯%f%b) '
 RPROMPT=''
 SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 

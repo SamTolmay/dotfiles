@@ -6,7 +6,7 @@ input=$(cat)
 # Extract basic info
 model=$(echo "$input" | jq -r '.model.display_name')
 cwd=$(echo "$input" | jq -r '.workspace.current_dir')
-dir=$(basename "$cwd")
+dir="$(basename "$(dirname "$cwd")")/$(basename "$cwd")"
 
 # Git info
 vcs=""
